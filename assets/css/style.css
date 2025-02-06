@@ -1436,9 +1436,7 @@ textarea.form-input::-webkit-resizer {
     min-width: calc(33.33% - 10px);
   }
 
-.vpn-warning {
-	font-size: 10px !important;
-}
+
 
   /**
    * #PORTFOLIO, BLOG 
@@ -1460,7 +1458,9 @@ textarea.form-input::-webkit-resizer {
   .avatar {
       border-radius: 20px !important;
   }
-
+.vpn-warning {
+	font-size: 10px !important;
+}
 
 }
 
