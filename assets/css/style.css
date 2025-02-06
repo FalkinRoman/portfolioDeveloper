@@ -1437,7 +1437,7 @@ textarea.form-input::-webkit-resizer {
   }
 
 .vpn-warning {
-	font-size: 8px;
+	font-size: 10px !important;
 }
 
   /**
@@ -1462,7 +1462,7 @@ textarea.form-input::-webkit-resizer {
   }
 
 .vpn-warning {
-	font-size: 8px;
+	font-size: 10px !important;
 }
 }
 
