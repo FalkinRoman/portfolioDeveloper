@@ -410,16 +410,38 @@ function loadVideo(parentElement) {
   const videoElement = parentElement.querySelector('[data-src]');
   const videoSrc = videoElement.getAttribute('data-src');
   
+  // Проверяем, мобильное ли устройство
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  // Для Google Drive на мобильных устройствах используем прямой URL для просмотра
+  if (videoSrc.includes('drive.google.com') && isMobile) {
+    // Извлекаем ID файла из URL
+    const fileIdMatch = videoSrc.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileIdMatch) {
+      const fileId = fileIdMatch[1];
+      // Открываем видео в новом окне для мобильных устройств
+      window.open(`https://drive.google.com/file/d/${fileId}/view`, '_blank');
+      return;
+    }
+  }
+  
   const iframe = document.createElement('iframe');
   
   // Определяем тип видео по URL
   if (videoSrc.includes('drive.google.com')) {
-    // Google Drive
-    // Формат: https://drive.google.com/file/d/FILE_ID/preview
+    // Google Drive - для десктопа используем preview с autoplay
     iframe.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
   } else if (videoSrc.includes('youtube.com') || videoSrc.includes('youtu.be')) {
     // YouTube
-    iframe.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+    let youtubeUrl = videoSrc;
+    if (videoSrc.includes('youtu.be')) {
+      const videoId = videoSrc.split('/').pop().split('?')[0];
+      youtubeUrl = `https://www.youtube.com/embed/${videoId}`;
+    } else if (videoSrc.includes('watch?v=')) {
+      const videoId = videoSrc.split('v=')[1].split('&')[0];
+      youtubeUrl = `https://www.youtube.com/embed/${videoId}`;
+    }
+    iframe.src = youtubeUrl + (youtubeUrl.includes('?') ? '&' : '?') + 'autoplay=1&playsinline=1';
   } else {
     // Другие источники (VK, RuTube и т.д.)
     iframe.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
@@ -427,7 +449,8 @@ function loadVideo(parentElement) {
   
   iframe.setAttribute('frameborder', '0');
   iframe.setAttribute('allowfullscreen', 'true');
-  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+  iframe.setAttribute('playsinline', '1');
   iframe.style.position = 'absolute';
   iframe.style.width = '100%';
   iframe.style.height = '100%';
