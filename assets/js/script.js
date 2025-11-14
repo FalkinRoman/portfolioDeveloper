@@ -173,6 +173,97 @@ testimonialsItem.forEach(item => {
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
 overlay.addEventListener("click", testimonialsModalFunc);
 
+// Инициализация Swiper для отзывов
+let testimonialsSwiperInstance = null;
+
+function initTestimonialsSwiper() {
+  if (typeof Swiper !== 'undefined') {
+    testimonialsSwiperInstance = new Swiper('.testimonials-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 15,
+      watchOverflow: true,
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 15,
+        },
+      },
+    });
+    
+    // Кастомные кнопки навигации
+    const prevBtn = document.querySelector('.testimonials-custom-prev');
+    const nextBtn = document.querySelector('.testimonials-custom-next');
+    
+    if (prevBtn && testimonialsSwiperInstance) {
+      prevBtn.addEventListener('click', () => {
+        testimonialsSwiperInstance.slidePrev();
+      });
+    }
+    
+    if (nextBtn && testimonialsSwiperInstance) {
+      nextBtn.addEventListener('click', () => {
+        testimonialsSwiperInstance.slideNext();
+      });
+    }
+    
+    // Обновление состояния кнопок при изменении слайда
+    if (testimonialsSwiperInstance) {
+      testimonialsSwiperInstance.on('slideChange', () => {
+        updateNavButtons();
+      });
+      updateNavButtons();
+    }
+    
+    // Убираем overflow: hidden у Swiper контейнеров
+    const swiperEl = document.querySelector('.testimonials-swiper');
+    if (swiperEl) {
+      swiperEl.style.overflow = 'visible';
+      const wrapper = swiperEl.querySelector('.swiper-wrapper');
+      if (wrapper) {
+        wrapper.style.overflow = 'visible';
+      }
+    }
+  } else {
+    // Если Swiper еще не загружен, попробуем через небольшую задержку
+    setTimeout(initTestimonialsSwiper, 100);
+  }
+}
+
+// Обновление состояния кнопок
+function updateNavButtons() {
+  if (!testimonialsSwiperInstance) return;
+  
+  const prevBtn = document.querySelector('.testimonials-custom-prev');
+  const nextBtn = document.querySelector('.testimonials-custom-next');
+  
+  if (prevBtn) {
+    if (testimonialsSwiperInstance.isBeginning) {
+      prevBtn.classList.add('disabled');
+      prevBtn.disabled = true;
+    } else {
+      prevBtn.classList.remove('disabled');
+      prevBtn.disabled = false;
+    }
+  }
+  
+  if (nextBtn) {
+    if (testimonialsSwiperInstance.isEnd) {
+      nextBtn.classList.add('disabled');
+      nextBtn.disabled = true;
+    } else {
+      nextBtn.classList.remove('disabled');
+      nextBtn.disabled = false;
+    }
+  }
+}
+
+// Инициализируем после загрузки DOM
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTestimonialsSwiper);
+} else {
+  initTestimonialsSwiper();
+}
+
 
 
 

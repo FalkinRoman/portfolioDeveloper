@@ -27,6 +27,9 @@
   
   <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 
 <body>
@@ -80,7 +83,6 @@
 
         <button class="info_more-btn" data-sidebar-btn>
           <span>Показать контакты</span>
-
           <ion-icon name="chevron-down"></ion-icon>
         </button>
 
@@ -248,16 +250,16 @@
        
         <!-- Резюме -->
         <section class="resume-download" data-aos="fade-up" data-aos-delay="75">
-          <a href="https://drive.google.com/uc?export=download&id=1q6vJDDVVfl47vyyzzIjEjKYocHsrZqSE" target="_blank" class="resume-card" download>
+          <a href="https://drive.google.com/file/d/1q6vJDDVVfl47vyyzzIjEjKYocHsrZqSE/view" target="_blank" class="resume-card">
             <div class="resume-icon-box">
               <ion-icon name="document-text-outline"></ion-icon>
             </div>
             <div class="resume-content">
               <h3 class="resume-title">Моё резюме</h3>
-              <p class="resume-description">Скачать PDF или открыть в новой вкладке</p>
+              <p class="resume-description">Открыть PDF в новой вкладке</p>
             </div>
             <div class="resume-arrow">
-              <ion-icon name="download-outline"></ion-icon>
+              <ion-icon name="open-outline"></ion-icon>
             </div>
           </a>
         </section>
@@ -591,66 +593,93 @@
 
           <h3 class="h3 testimonials-title">Отзывы</h3>
 
-          <ul class="testimonials-list has-scrollbar">
+          <div class="testimonials-swiper-container">
+            <div class="swiper testimonials-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" data-aos="zoom-in" data-aos-delay="50">
+                  <div class="testimonials-card" data-testimonials-item>
+                    <div class="testimonials-card-header">
+                      <figure class="testimonials-avatar-box">
+                        <img src="./assets/images/avatar-1.png" alt="Алексей Белоусов" width="60" data-testimonials-avatar>
+                      </figure>
+                      <div class="testimonials-header-info">
+                        <h4 class="h4 testimonials-item-title" data-testimonials-title>Алексей Белоусов</h4>
+                      </div>
+                    </div>
+                    <div class="testimonials-text" data-testimonials-text>
+                      <p>
+                        Роман создал для меня стильный и крутой сайт, который полностью отражает мой стиль и подход. 🎶 Он учел все пожелания, предложил классные идеи и сделал всё в срок. 🕒 Сайт получился удобным, современным и очень привлекательным. Респект за внимание к деталям! 👏
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-            <li class="testimonials-item" data-aos="zoom-in" data-aos-delay="50">
-              <div class="content-card" data-testimonials-item>
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-1.png" alt="Иван Петров" width="60" data-testimonials-avatar>
-                </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Алексей Белоусов</h4>
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Роман создал для меня стильный и крутой сайт, который полностью отражает мой стиль и подход. 🎶 Он учел все пожелания, предложил классные идеи и сделал всё в срок. 🕒 Сайт получился удобным, современным и очень привлекательным. Респект за внимание к деталям! 👏
-                  </p>
+                <div class="swiper-slide" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="testimonials-card" data-testimonials-item>
+                    <div class="testimonials-card-header">
+                      <figure class="testimonials-avatar-box">
+                        <img src="./assets/images/avatar-2.png" alt="София Чернова" width="60" data-testimonials-avatar>
+                      </figure>
+                      <div class="testimonials-header-info">
+                        <h4 class="h4 testimonials-item-title" data-testimonials-title>София Чернова</h4>
+                      </div>
+                    </div>
+                    <div class="testimonials-text" data-testimonials-text>
+                      <p>
+                        Работа с Романом над проектом Noova была настоящим удовольствием! 🌟 Он смог понять все наши идеи и требования, предложил креативные решения и воплотил их в жизнь. Сайт получился стильным, удобным и визуально привлекательным, точно отражая наш подход и философию. Роман внимателен к деталям и всегда открыт для предложений, что сделало процесс работы легким и приятным. Очень довольна результатом и благодарна за профессионализм! 👏💻
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide" data-aos="zoom-in" data-aos-delay="150">
+                  <div class="testimonials-card" data-testimonials-item>
+                    <div class="testimonials-card-header">
+                      <figure class="testimonials-avatar-box">
+                        <img src="./assets/images/avatar-4.png" alt="Максим Воробьёв" width="60" data-testimonials-avatar>
+                      </figure>
+                      <div class="testimonials-header-info">
+                        <h4 class="h4 testimonials-item-title" data-testimonials-title>Максим Воробьёв</h4>
+                      </div>
+                    </div>
+                    <div class="testimonials-text" data-testimonials-text>
+                      <p>
+                        Работа с Романом над проектом Qitcher была отличным опытом! 🍣 Он полностью понял концепцию нашего ресторана и создал сайт, который не только выглядит стильно, но и очень удобен для пользователей. Все страницы адаптированы под мобильные устройства, а процесс заказа стал простым и интуитивно понятным. Роман проявил внимание к каждой детали, чтобы сайт отражал атмосферу ресторана и привлекал клиентов. Очень довольны результатом и с радостью будем работать с ним снова! 🙌
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide" data-aos="zoom-in" data-aos-delay="200">
+                  <div class="testimonials-card" data-testimonials-item>
+                    <div class="testimonials-card-header">
+                      <figure class="testimonials-avatar-box">
+                        <img src="./assets/images/avatar-3.png" alt="Александра Кузнецова" width="60"
+                          data-testimonials-avatar>
+                      </figure>
+                      <div class="testimonials-header-info">
+                        <h4 class="h4 testimonials-item-title" data-testimonials-title>Александра Кузнецова</h4>
+                      </div>
+                    </div>
+                    <div class="testimonials-text" data-testimonials-text>
+                      <p>
+                        Работа с Романом над проектом Celestials была потрясающим опытом! 🌟 Он создал сайт для нашей NFT коллекции, который полностью отражает уникальность проекта и его визуальный стиль. Сайт получился не только красивым, но и функциональным, с удобной навигацией и четко представленным роадмэпом. Роман учел все наши пожелания, предложил креативные решения и всегда был на связи, чтобы сделать сайт максимально удобным для пользователей. Очень довольна результатом и уверена, что будем продолжать работать с ним в будущем! 🚀
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </li>
+            </div>
+          </div>
 
-            <li class="testimonials-item" data-aos="zoom-in" data-aos-delay="100">
-              <div class="content-card" data-testimonials-item>
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-2.png" alt="София Чернова" width="60" data-testimonials-avatar>
-                </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>София Чернова</h4>
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Работа с Романом над проектом Noova была настоящим удовольствием! 🌟 Он смог понять все наши идеи и требования, предложил креативные решения и воплотил их в жизнь. Сайт получился стильным, удобным и визуально привлекательным, точно отражая наш подход и философию. Роман внимателен к деталям и всегда открыт для предложений, что сделало процесс работы легким и приятным. Очень довольна результатом и благодарна за профессионализм! 👏💻
-                  </p>
-                </div>
-              </div>
-            </li>
-
-            <li class="testimonials-item" data-aos="zoom-in" data-aos-delay="150">
-              <div class="content-card" data-testimonials-item>
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-4.png" alt="Максим Воробьёв" width="60" data-testimonials-avatar>
-                </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Максим Воробьёв</h4>
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Работа с Романом над проектом Qitcher была отличным опытом! 🍣 Он полностью понял концепцию нашего ресторана и создал сайт, который не только выглядит стильно, но и очень удобен для пользователей. Все страницы адаптированы под мобильные устройства, а процесс заказа стал простым и интуитивно понятным. Роман проявил внимание к каждой детали, чтобы сайт отражал атмосферу ресторана и привлекал клиентов. Очень довольны результатом и с радостью будем работать с ним снова! 🙌
-                  </p>
-                </div>
-              </div>
-            </li>
-
-            <li class="testimonials-item" data-aos="zoom-in" data-aos-delay="200">
-              <div class="content-card" data-testimonials-item>
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-3.png" alt="Александра Кузнецова" width="60"
-                    data-testimonials-avatar>
-                </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Александра Кузнецова</h4>
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Работа с Романом над проектом Celestials была потрясающим опытом! 🌟 Он создал сайт для нашей NFT коллекции, который полностью отражает уникальность проекта и его визуальный стиль. Сайт получился не только красивым, но и функциональным, с удобной навигацией и четко представленным роадмэпом. Роман учел все наши пожелания, предложил креативные решения и всегда был на связи, чтобы сделать сайт максимально удобным для пользователей. Очень довольна результатом и уверена, что будем продолжать работать с ним в будущем! 🚀
-                  </p>
-                </div>
-              </div>
-            </li>
-
-          </ul>
+          <div class="testimonials-custom-nav">
+            <button class="testimonials-custom-btn testimonials-custom-prev" type="button">
+              <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button class="testimonials-custom-btn testimonials-custom-next" type="button">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+          </div>
 
         </section>
 
@@ -1236,6 +1265,9 @@
     - AOS Animation Library
   -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <!--
     - custom js link
