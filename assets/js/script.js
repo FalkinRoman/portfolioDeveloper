@@ -1,5 +1,132 @@
 'use strict';
 
+// Блокируем скролл до загрузки
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('preloader-active');
+  
+  // Инициализация анимации прогресс-бара
+  const progressCircle = document.querySelector('.logo-circle-progress');
+  if (progressCircle) {
+    const circumference = 283; // 2 * π * 45 (радиус круга)
+    
+    // Устанавливаем начальное состояние - пустой круг
+    progressCircle.style.strokeDashoffset = circumference;
+    
+    let progress = 0;
+    
+    // Функция обновления прогресса
+    const updateProgress = () => {
+      const currentProgress = Math.min(progress, 100);
+      // При 0% offset = circumference (пустой), при 100% offset = 0 (полный)
+      const offset = circumference - (currentProgress / 100) * circumference;
+      progressCircle.style.strokeDashoffset = offset;
+    };
+    
+    // Симуляция прогресса загрузки
+    const startTime = performance.now();
+    const minLoadTime = 2500;
+    
+    const animateProgress = () => {
+      const elapsed = performance.now() - startTime;
+      progress = Math.min((elapsed / minLoadTime) * 100, 100);
+      updateProgress();
+      
+      if (progress < 100) {
+        requestAnimationFrame(animateProgress);
+      } else {
+        // Достигли 100% - полный круг
+        progressCircle.style.strokeDashoffset = 0;
+      }
+    };
+    
+    // Начинаем анимацию с небольшой задержкой
+    setTimeout(() => {
+      requestAnimationFrame(animateProgress);
+    }, 50);
+  }
+});
+
+// Preloader и инициализация AOS
+window.addEventListener('load', function() {
+  const preloader = document.getElementById('preloader');
+  const progressCircle = document.querySelector('.logo-circle-progress');
+  
+  // Убеждаемся, что прогресс достиг 100%
+  if (progressCircle) {
+    const circumference = 283;
+    progressCircle.style.strokeDashoffset = 0;
+  }
+  
+  // Минимальное время показа прелоадера
+  const minLoadTime = 2500;
+  const startTime = performance.now();
+  
+  function hidePreloaderAndInitAOS() {
+    const elapsed = performance.now() - startTime;
+    const remainingTime = Math.max(0, minLoadTime - elapsed);
+    
+    setTimeout(() => {
+      // Скрываем прелоадер
+      if (preloader) {
+        preloader.classList.add('hidden');
+      }
+      
+      // Разблокируем скролл
+      document.body.classList.remove('preloader-active');
+      
+      // Инициализируем AOS после скрытия прелоадера
+      setTimeout(() => {
+        if (typeof AOS !== 'undefined') {
+          // Инициализируем AOS
+          AOS.init({
+            duration: 700,
+            easing: 'ease-out',
+            once: true,
+            offset: 50,
+            delay: 0,
+            disable: false,
+          });
+          
+          // Обновляем AOS и принудительно показываем элементы в viewport
+          setTimeout(() => {
+            // Показываем все элементы, которые уже в viewport
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            document.querySelectorAll('[data-aos]').forEach(el => {
+              const rect = el.getBoundingClientRect();
+              
+              // Если элемент виден в viewport (с запасом в 200px для надежности)
+              if (rect.top < windowHeight + 200 && rect.bottom > -200) {
+                // Принудительно запускаем анимацию
+                el.classList.add('aos-animate');
+                // Убираем inline стили, если они есть
+                el.style.opacity = '';
+                el.style.visibility = '';
+              }
+            });
+            
+            // Обновляем AOS после принудительного показа элементов
+            AOS.refresh();
+            
+            // Дополнительная проверка через небольшую задержку
+            setTimeout(() => {
+              AOS.refresh();
+            }, 100);
+          }, 200);
+        } else {
+          console.warn('AOS library not loaded - showing all elements');
+          // Fallback: показываем все элементы, если AOS не загрузилась
+          document.querySelectorAll('[data-aos]').forEach(el => {
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+          });
+        }
+      }, 100);
+    }, remainingTime);
+  }
+  
+  hidePreloaderAndInitAOS();
+});
+
 // Функция переключения активности элемента
 const elementToggleFunc = function (elem) {
   elem.classList.toggle("active");
@@ -188,17 +315,79 @@ navigationLinks.forEach(link => {
 
 //Подгрузка видео после нажатия на обложку 
 
-function loadYouTubeVideo(parentElement) {
-  const videoSrc = parentElement.querySelector('[data-src]').getAttribute('data-src'); // Берём URL видео из data-src
-  const iframe = document.createElement('iframe'); // Создаём iframe
-  iframe.src = videoSrc + "?autoplay=1"; // Добавляем autoplay, чтобы видео запускалось сразу
-  iframe.setAttribute('frameborder', '0'); // Убираем рамку
-  iframe.setAttribute('allowfullscreen', 'true'); // Разрешаем полноэкранный режим
-  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'); // Разрешаем дополнительные функции
+function loadVideo(parentElement) {
+  const videoElement = parentElement.querySelector('[data-src]');
+  const videoSrc = videoElement.getAttribute('data-src');
+  
+  const iframe = document.createElement('iframe');
+  
+  // Определяем тип видео по URL
+  if (videoSrc.includes('drive.google.com')) {
+    // Google Drive
+    // Формат: https://drive.google.com/file/d/FILE_ID/preview
+    iframe.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+  } else if (videoSrc.includes('youtube.com') || videoSrc.includes('youtu.be')) {
+    // YouTube
+    iframe.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+  } else {
+    // Другие источники (VK, RuTube и т.д.)
+    iframe.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+  }
+  
+  iframe.setAttribute('frameborder', '0');
+  iframe.setAttribute('allowfullscreen', 'true');
+  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
   iframe.style.position = 'absolute';
   iframe.style.width = '100%';
   iframe.style.height = '100%';
-  parentElement.innerHTML = ''; // Очищаем содержимое div (удаляем картинку и кнопку)
-  parentElement.appendChild(iframe); // Добавляем iframe
+  iframe.style.top = '0';
+  iframe.style.left = '0';
+  
+  parentElement.innerHTML = '';
+  parentElement.appendChild(iframe);
+}
+
+// Анимация прогресс-баров навыков
+const animateSkillBar = (bar) => {
+  const skillValue = bar.getAttribute('data-skill');
+  // Убеждаемся, что начальное состояние установлено
+  bar.style.width = '0%';
+  
+  // Используем requestAnimationFrame для плавной анимации
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      bar.style.width = skillValue + '%';
+    }, 50);
+  });
+};
+
+// Intersection Observer для отслеживания появления элементов
+const observerOptions = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.15
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Анимация прогресс-баров навыков
+      if (entry.target.classList.contains('skill')) {
+        const progressBars = entry.target.querySelectorAll('.skill-progress-fill[data-skill]');
+        progressBars.forEach((bar, index) => {
+          setTimeout(() => {
+            animateSkillBar(bar);
+          }, index * 200);
+        });
+        observer.unobserve(entry.target);
+      }
+    }
+  });
+}, observerOptions);
+
+// Наблюдаем за секцией навыков
+const skillSection = document.querySelector('.skill');
+if (skillSection) {
+  observer.observe(skillSection);
 }
 

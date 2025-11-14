@@ -94,14 +94,207 @@
    * transition
    */
 
-  --transition-1: 0.25s ease;
-  --transition-2: 0.5s ease-in-out;
+  --transition-1: 0.3s ease;
+  --transition-2: 0.6s ease-in-out;
 
 }
 
 
 
 
+
+/*-----------------------------------*\
+  #PRELOADER
+\*-----------------------------------*/
+
+body.preloader-active {
+  overflow: hidden;
+}
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--eerie-black-1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+.preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  position: relative;
+}
+
+/* Круговой прогресс-бар */
+.preloader-logo {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.logo-circle {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.logo-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.logo-circle-bg {
+  fill: none;
+  stroke: hsla(45, 100%, 72%, 0.15);
+  stroke-width: 3;
+}
+
+.logo-circle-progress {
+  fill: none;
+  stroke: var(--orange-yellow-crayola);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Текст */
+.preloader-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.preloader-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 28px;
+  font-weight: var(--fw-600);
+  letter-spacing: 1px;
+  color: var(--light-gray);
+  animation: fadeInScale 1s ease-out 0.3s both;
+}
+
+.preloader-name span:first-child {
+  color: var(--light-gray);
+}
+
+.wave-emoji {
+  font-size: 28px;
+  display: inline-block;
+  animation: wave 1.8s ease-in-out infinite;
+  transform-origin: 70% 70%;
+}
+
+.preloader-subtitle {
+  font-size: 9px;
+  font-weight: var(--fw-400);
+  color: var(--light-gray-70);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 1s both;
+}
+
+.typing-text {
+  position: relative;
+  display: inline-block;
+}
+
+.typing-text::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 16px;
+  background: var(--orange-yellow-crayola);
+  animation: blink 1s infinite;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px hsla(45, 100%, 72%, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px hsla(45, 100%, 72%, 0.8));
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40%, 60% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* AOS будет управлять видимостью элементов */
 
 /*-----------------------------------*\
   #RESET
@@ -224,7 +417,7 @@ article {
 
 article.active {
   display: block;
-  animation: fade 0.5s ease backwards;
+  animation: fade 0.6s ease backwards;
 }
 
 @keyframes fade {
@@ -411,6 +604,7 @@ main {
   width: max-content;
   padding: 3px 12px;
   border-radius: 8px;
+  margin-left: -10px;
 }
 
 .info_more-btn {
@@ -590,7 +784,7 @@ main {
  */
 
 .service {
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .service-title {
@@ -650,7 +844,8 @@ main {
  */
 
 .testimonials {
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .testimonials-title {
@@ -898,7 +1093,12 @@ main {
  */
 
 .timeline {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+}
+
+.technologies-section {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .timeline .title-wrapper {
@@ -965,6 +1165,10 @@ main {
 /**
  * skills 
  */
+
+.skill {
+  margin-bottom: 40px;
+}
 
 .skills-title {
   margin-bottom: 20px;
@@ -1052,7 +1256,7 @@ main {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: 0.15s ease-in-out;
+  transition: 0.18s ease-in-out;
 }
 
 .filter-select.active+.select-list {
@@ -1089,7 +1293,7 @@ main {
 
 .project-item.active {
   display: block;
-  animation: scaleUp 0.25s ease forwards;
+  animation: scaleUp 0.3s ease forwards;
 }
 
 @keyframes scaleUp {
@@ -1185,6 +1389,26 @@ main {
   color: var(--light-gray-70);
   font-size: var(--fs-6);
   font-weight: var(--fw-300);
+}
+
+.project-item-large .project-img {
+  height: 250px;
+}
+
+.project-item-large .project-title {
+  font-size: var(--fs-4);
+  font-weight: var(--fw-500);
+}
+
+.project-item .title {
+  color: var(--white-1);
+  background: var(--onyx);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-300);
+  width: max-content;
+  padding: 3px 12px;
+  border-radius: 8px;
+  display: inline-block;
 }
 
 
@@ -1462,6 +1686,31 @@ textarea.form-input::-webkit-resizer {
 	font-size: 10px !important;
 }
 
+  /* resume mobile */
+  .resume-card {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .resume-icon-box {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .resume-title {
+    font-size: var(--fs-5);
+  }
+
+  .resume-description {
+    font-size: var(--fs-7);
+    line-height: 1.3;
+  }
+
+  .resume-arrow {
+    font-size: 18px;
+  }
+
 }
 
 
@@ -1630,6 +1879,35 @@ textarea.form-input::-webkit-resizer {
 
   .about-text {
     margin-bottom: 40px;
+  }
+
+  /* resume */
+  .resume-download {
+    margin-bottom: 35px;
+    margin-top: 30px;
+  }
+
+  .resume-card {
+    padding: 25px;
+    gap: 20px;
+  }
+
+  .resume-icon-box {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+
+  .resume-title {
+    font-size: var(--fs-3);
+  }
+
+  .resume-description {
+    font-size: var(--fs-6);
+  }
+
+  .resume-arrow {
+    font-size: 24px;
   }
 
   /* service */
@@ -2170,6 +2448,7 @@ textarea.form-input::-webkit-resizer {
 
   .info-content .title {
     margin: auto;
+    margin-left: -10px;
   }
 
   .info_more-btn {
@@ -2217,6 +2496,130 @@ textarea.form-input::-webkit-resizer {
 
 }
 
+
+/* Резюме */
+.resume-download {
+  margin-bottom: 30px;
+  margin-top: 25px;
+}
+
+.resume-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--border-gradient-onyx);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  text-decoration: none;
+  transition: var(--transition-1);
+  cursor: pointer;
+  z-index: 1;
+  border: 1px solid var(--jet);
+}
+
+.resume-card::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-gradient-jet);
+  border-radius: inherit;
+  z-index: -1;
+  transition: var(--transition-1);
+}
+
+.resume-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3);
+  border-color: var(--orange-yellow-crayola);
+}
+
+.resume-card:hover::before {
+  background: var(--bg-gradient-yellow-2);
+}
+
+.resume-icon-box {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: var(--orange-yellow-crayola);
+  box-shadow: var(--shadow-1);
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.resume-icon-box::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--eerie-black-1);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.resume-card:hover .resume-icon-box {
+  background: var(--bg-gradient-yellow-1);
+}
+
+.resume-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.resume-title {
+  color: var(--white-2);
+  font-size: var(--fs-4);
+  font-weight: var(--fw-500);
+  margin-bottom: 4px;
+  transition: var(--transition-1);
+}
+
+.resume-card:hover .resume-title {
+  color: var(--orange-yellow-crayola);
+}
+
+.resume-description {
+  color: var(--light-gray-70);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-300);
+  line-height: 1.4;
+  margin: 0;
+  transition: var(--transition-1);
+}
+
+.resume-card:hover .resume-description {
+  color: var(--light-gray);
+}
+
+.resume-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--orange-yellow-crayola);
+  transition: var(--transition-1);
+  flex-shrink: 0;
+}
+
+.resume-card:hover .resume-arrow {
+  transform: translateX(5px);
+  color: var(--orange-yellow-crayola);
+}
+
+.resume-card:active {
+  transform: translateY(0);
+}
+
+.resume-arrow ion-icon {
+  --ionicon-stroke-width: 50px;
+}
 
 .about-video {
   margin-bottom: 40px;
@@ -2269,7 +2672,7 @@ textarea.form-input::-webkit-resizer {
   gap: 20px;
   /* Отступ между карточками */
   will-change: transform;
-  animation: scrolling 40s linear infinite;
+  animation: scrolling 45s linear infinite;
   padding-right: 20px;
 }
 
@@ -2286,7 +2689,7 @@ textarea.form-input::-webkit-resizer {
   /* Уменьшенное значение отступа внутри карточки */
   text-align: center;
   position: relative;
-  transition: transform 0.3s, border 0.3s;
+  transition: transform 0.35s, border 0.35s;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2349,7 +2752,7 @@ textarea.form-input::-webkit-resizer {
   justify-content: center;
   align-items: center;
   font-size: 24px;
-  transition: transform 0.3s ease; /* Плавный переход */
+  transition: transform 0.35s ease; /* Плавный переход */
 }
 
 /* Эффект увеличения кнопки при наведении */
@@ -2367,4 +2770,18 @@ textarea.form-input::-webkit-resizer {
   }
 
   
+}
+
+/*-----------------------------------*\
+  #ANIMATIONS
+\*-----------------------------------*/
+
+/* Начальное состояние прогресс-баров навыков */
+.skill-progress-fill[data-skill] {
+  width: 0%;
+}
+
+/* Плавные переходы для анимаций */
+.skill-progress-fill {
+  transition: width 1.8s ease-out;
 }
