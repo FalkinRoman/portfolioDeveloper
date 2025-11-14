@@ -920,7 +920,7 @@ main {
   background: var(--border-gradient-onyx);
   padding: 20px;
   border-radius: 14px;
-  box-shadow: var(--shadow-2);
+  box-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.15);
   cursor: pointer;
   transition: var(--transition-1);
   z-index: 1;
@@ -936,7 +936,7 @@ main {
 }
 
 .testimonials-card:hover {
-  box-shadow: var(--shadow-3);
+  box-shadow: 0 6px 16px hsla(0, 0%, 0%, 0.2);
 }
 
 /* Заголовок карточки с аватаром */
